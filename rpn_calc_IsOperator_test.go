@@ -15,7 +15,7 @@ const (
 	ASCII              = Alphabet + Numerals + InvalidNonAlphaNum + AllValids
 )
 
-func TestIsOperatorSuccess(*testing.T) {
+func TestIsOperatorSuccess(t *testing.T) {
 
 	for i := 0; i < len(AllValids); i++ {
 
@@ -32,7 +32,7 @@ func TestIsOperatorSuccess(*testing.T) {
 	}
 }
 
-func TestIsOperatorFail(*testing.T) {
+func TestIsOperatorFail(t *testing.T) {
 
 	// Test all invalid single characters
 	for i := 0; i < len(AllInvalids); i++ {

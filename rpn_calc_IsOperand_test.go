@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestIsOperandSuccess(*testing.T) {
+func TestIsOperandSuccess(t *testing.T) {
 
 	// success
 	testCases := []struct {
@@ -59,7 +59,7 @@ func TestIsOperandSuccess(*testing.T) {
 
 }
 
-func TestIsOperandFail(*testing.T) {
+func TestIsOperandFail(t *testing.T) {
 
 	// fail
 	testCases := []struct {
