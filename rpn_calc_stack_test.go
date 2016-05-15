@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"math/rand"
 	"testing"
 	"time"
@@ -30,13 +29,13 @@ func TestStack(t *testing.T) {
 		gotNum := s.s[tc]
 
 		if expectedNum != gotNum {
-			log.Fatalf("Pushed %f onto stack, saw %f as last num on stack", expectedNum, gotNum)
+			t.Errorf("Pushed %f onto stack, saw %f as last num on stack", expectedNum, gotNum)
 		}
 
 		expectedSize := tc + 1
 		gotSize := s.Size()
 		if expectedSize != gotSize {
-			log.Fatalf("Expected stack size %v after push, Got: %v", expectedSize, gotSize)
+			t.Errorf("Expected stack size %v after push, Got: %v", expectedSize, gotSize)
 		}
 	}
 
@@ -46,23 +45,23 @@ func TestStack(t *testing.T) {
 		gotNum, gotErr := s.Pop()
 		expectedNum := n[tc]
 		if expectedNum != gotNum {
-			log.Fatalf("Expected to pop %f, Got: %f at index %v", expectedNum, gotNum, tc)
+			t.Errorf("Expected to pop %f, Got: %f at index %v", expectedNum, gotNum, tc)
 		}
 		if gotErr != nil {
-			log.Fatalf("Expected no error after pop, Got: %v", gotErr)
+			t.Errorf("Expected no error after pop, Got: %v", gotErr)
 		}
 
 		expectedSize := tc
 		gotSize := s.Size()
 		if expectedSize != gotSize {
-			log.Fatalf("Expected size %v after pop, Got: %v", expectedSize, gotSize)
+			t.Errorf("Expected size %v after pop, Got: %v", expectedSize, gotSize)
 		}
 	}
 
 	// Check to make sure stack is now empty
 	gotSize := s.Size()
 	if gotSize != 0 {
-		log.Fatalf("Expected empty stack, Got size: %v", gotSize)
+		t.Errorf("Expected empty stack, Got size: %v", gotSize)
 	}
 
 	// Try to pop on more to test for empty stack error
@@ -70,9 +69,9 @@ func TestStack(t *testing.T) {
 	gotNum, gotErr := s.Pop()
 
 	if gotErr == nil {
-		log.Fatalf("Expected error when popping from empty stack, Got: nil")
+		t.Errorf("Expected error when popping from empty stack, Got: nil")
 	}
 	if expectedNum != gotNum {
-		log.Fatalf("Expected 0 when popping from empty stack, Got: %v", gotNum)
+		t.Errorf("Expected 0 when popping from empty stack, Got: %v", gotNum)
 	}
 }
