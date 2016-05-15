@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"math/rand"
 	"testing"
 )
@@ -24,10 +23,10 @@ func TestIsOperatorSuccess(t *testing.T) {
 		gotOp, gotErr := IsOperator(tc)
 
 		if gotOp != string(AllValids[i]) {
-			log.Fatalf("While testing IsOperator(\"%v\"), Expected: %v, Got: %v", tc, AllValids[i], gotOp)
+			t.Errorf("While testing IsOperator(\"%v\"), Expected: %v, Got: %v", tc, AllValids[i], gotOp)
 		}
 		if gotErr != nil {
-			log.Fatalf("While testing IsOperator(\"%v\"), Expected: no error, Got %v.", tc, gotErr)
+			t.Errorf("While testing IsOperator(\"%v\"), Expected: no error, Got %v.", tc, gotErr)
 		}
 	}
 }
@@ -41,10 +40,10 @@ func TestIsOperatorFail(t *testing.T) {
 		gotOp, gotErr := IsOperator(tc)
 
 		if gotOp != "" {
-			log.Fatalf("While testing IsOperator(\"%v\"), Expected: empty string, Got: %v", tc, gotOp)
+			t.Errorf("While testing IsOperator(\"%v\"), Expected: empty string, Got: %v", tc, gotOp)
 		}
 		if gotErr == nil {
-			log.Fatalf("While testing IsOperator(\"%v\"), error should have been received, got nil.", tc)
+			t.Errorf("While testing IsOperator(\"%v\"), error should have been received, got nil.", tc)
 		}
 	}
 
@@ -61,10 +60,10 @@ func TestIsOperatorFail(t *testing.T) {
 		gotOp, gotErr := IsOperator(tc)
 
 		if gotOp != "" {
-			log.Fatalf("While testing IsOperator(\"%v\"), Expected: empty string, Got: %v", tc, gotOp)
+			t.Errorf("While testing IsOperator(\"%v\"), Expected: empty string, Got: %v", tc, gotOp)
 		}
 		if gotErr == nil {
-			log.Fatalf("While testing IsOperator(\"%v\"), error should have been received, got nil.", tc)
+			t.Errorf("While testing IsOperator(\"%v\"), error should have been received, got nil.", tc)
 		}
 	}
 }

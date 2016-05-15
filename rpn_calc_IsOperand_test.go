@@ -1,9 +1,6 @@
 package main
 
-import (
-	"log"
-	"testing"
-)
+import "testing"
 
 func TestIsOperandSuccess(t *testing.T) {
 
@@ -50,10 +47,10 @@ func TestIsOperandSuccess(t *testing.T) {
 		gotNum, gotErr := IsOperand(tc.input)
 
 		if gotNum != tc.expectedNum {
-			log.Fatalf("While testing %s: Expected: %v, Got: %v", tc.desc, tc.expectedNum, gotNum)
+			t.Errorf("While testing %s: Expected: %v, Got: %v", tc.desc, tc.expectedNum, gotNum)
 		}
 		if gotErr != nil {
-			log.Fatalf("While testing %s: %v", tc.desc, gotErr)
+			t.Errorf("While testing %s: %v", tc.desc, gotErr)
 		}
 	}
 
@@ -79,10 +76,10 @@ func TestIsOperandFail(t *testing.T) {
 		gotNum, gotErr := IsOperand(tc.input)
 
 		if gotNum != tc.expectedNum {
-			log.Fatalf("While testing %s: Expected: %v, Got: %v", tc.desc, tc.expectedNum, gotNum)
+			t.Errorf("While testing %s: Expected: %v, Got: %v", tc.desc, tc.expectedNum, gotNum)
 		}
 		if gotErr == nil {
-			log.Fatalf("While testing %s, error should have been received", tc.desc)
+			t.Errorf("While testing %s, error should have been received", tc.desc)
 		}
 	}
 
