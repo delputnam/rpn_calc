@@ -80,3 +80,33 @@ func IsOperator(input string) (string, error) {
 	}
 	return "", errors.New("Invalid Operator")
 }
+
+// PerformOperation takes two float64 operands and one of the
+// valid operators (+, -, *, /) and returns the float64 value
+// of the operation. operand2 cannot be zero when performing
+// division. Invalid operations return a value of 0 and raise
+// an error.
+func PerformOperation(operand1, operand2 float64, operator string) (result float64, err error) {
+	// get result
+	switch operator {
+	case "+":
+		result = operand1 + operand2
+		break
+	case "-":
+		result = operand1 - operand2
+		break
+	case "*":
+		result = operand1 * operand2
+		break
+	case "/":
+		if operand2 == 0 {
+			return 0, errors.New("Cannot divide by zero.")
+		}
+		result = operand1 / operand2
+		break
+	default:
+		return 0, errors.New("Unsupported operator.")
+	}
+
+	return result, nil
+}
