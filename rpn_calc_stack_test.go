@@ -4,11 +4,15 @@ import (
 	"log"
 	"math/rand"
 	"testing"
+	"time"
 )
 
 func TestStack(t *testing.T) {
 	var s Stack
 	var n []float64
+
+	seed := rand.NewSource(time.Now().UnixNano())
+	rnd := rand.New(seed)
 
 	// push some numbers on the stack and check size of stack
 	// and make sure the number just pushed is the one on TestIsOperatorSuccess
@@ -16,7 +20,7 @@ func TestStack(t *testing.T) {
 	for tc := 0; tc < 1000; tc++ {
 
 		// generate a random float64 and remember it
-		expectedNum := rand.Float64() * float64(rand.Intn(10000))
+		expectedNum := rnd.Float64() * float64(rnd.Intn(10000))
 		n = append(n, expectedNum)
 
 		// push onto stack
