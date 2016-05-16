@@ -42,7 +42,15 @@ To exit the program gracefully enter `q` or `EOF` (typically, `ctrl-d`) at the p
 
 ## Notes
 
-This program will attempt to ignore invalid input and will only exit on an un-recoverable error (or when an `EOF` or `q` is input).
+The specification stated the followung:
+
+```
+The calculator should not allow invalid or undefined behavior.
+```
+
+In this implementation of the calculator, this specification is interpreted as ignoring invalid input when possible and only throwing fatal errors when absolutely necessary.
+
+Based on this interpretation, this program will attempt to ignore invalid input and will only exit on an un-recoverable error (or when an `EOF` or `q` is input).
 
 * If invalid input is entered, the application will ignore it and continue. (ex. `> %` is not a valid operand or operator)
   ```
