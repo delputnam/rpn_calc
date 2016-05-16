@@ -14,7 +14,7 @@ To run the unit tests, change the current directory to `$GOPATH/rpn_calc` and th
 
 `$ go test -v ./...`
 
-__Note:__ For convenience I have also added binaries for Linux, Windows and Mac OS X (darwin) to this repository. The Windows and Linux binaries were cross compiled with Go 1.6.2 on Mac OS X 10.11.4. (Only the darwin binary has been thoroughly tested.)
+__Note:__ For convenience there are pre-compiles binaries for Linux, Windows and Mac OS X (darwin) of this repository. These binaries were cross compiled with Go 1.6.2 on Mac OS X 10.11.4. (Only the darwin binary has been thoroughly tested.)
 
 ## Usage
 
