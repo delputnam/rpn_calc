@@ -2,39 +2,107 @@
 package main
 
 import (
+	"bufio"
 	"errors"
+	"fmt"
+	"io"
+	"log"
+	"os"
 	"strconv"
+
+	"github.com/delputnam/rpn_calc/stack"
 )
 
 func main() {
 
+	var s stack.Stack
+	var input string
+	var output float64
+
 	// open Stdin reader
+	reader := bufio.NewReader(os.Stdin)
 
 	// begin loop
+	for {
 
-	// prompt for input
+		// prompt for input
+		fmt.Print("> ")
 
-	// read until new line
+		// read until new line
+		// Note: I'm ignoring the isPrefix return value here since legal operands
+		// are all shorter than MaxScanTokenSize of 65,536
+		bytes, _, err := reader.ReadLine()
 
-	// exit on EOF
+		// exit if read an EOF
+		if err == io.EOF {
+			os.Exit(0)
+		}
 
-	// convert read bytes to string
+		// convert read bytes to string
+		input = string(bytes)
 
-	// push onto stack if valid operand
+		// exit if input is "q"
+		if input == "q" {
+			os.Exit(0)
+		}
 
-	// perform op if valid operator
+		// if valid operand, push onto stack and echo to console
+		num, err := IsOperand(input)
+		if err == nil {
 
-	// Exit if "q"
+			// push num onto stack
+			s.Push(num)
 
-	// check for at least 2 operands in stack to continue
+			// display output and continue with loop
+			fmt.Println(num)
+			continue
+		}
 
-	// get result
+		// if the input is aa valid operator, perform operation, push result onto
+		// stack and echo to console
+		operator, err := IsOperator(input)
+		if err == nil {
 
-	// pop operands off stack
+			// all of the supported operators require exactly 2 operands, so
+			// make sure we have at least 2 operands in stack to continue
+			if s.Size() < 2 {
+				fmt.Println("Not enough operands. Ignoring operator.")
+				continue
+			}
 
-	// push result onto stack
+			// get operands. note that the order of the operands is important
+			// the first one off the stack is the second operand and the second
+			// one off the stack is the first operand.
+			operand2, err := s.Pop()
+			if err != nil {
+				log.Fatalf("Error getting operand from stack: %v", err)
+			}
+			operand1, err := s.Pop()
+			if err != nil {
+				log.Fatalf("Error getting operand from stack: %v", err)
+			}
 
-	// display output
+			// get result
+			output, err = PerformOperation(operand1, operand2, operator)
+			if err != nil {
+				fmt.Printf("Error performing operation '%v': %v Ignoring.\n", operator, err)
+				// operation failed, so push operators back onto stack and continue
+				s.Push(operand1)
+				s.Push(operand2)
+				continue
+			}
+
+			// push result onto stack
+			s.Push(output)
+
+			// display result and continue with loop
+			fmt.Println(output)
+			continue
+		}
+
+		// if we're here, the input was not a valid operator or operand
+		fmt.Println("Invalid input. Ignoring.")
+	}
 }
 
 // IsOperand uses ParseFloat and returns a float64
